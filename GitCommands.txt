@@ -1,0 +1,10 @@
+git remote -v
+
+
+git remote add upstream https://github.com/mohammedalhdad/MainTemplate.git
+
+
+
+//ÚäÏãÇ íÊã ÅÌÑÇÁ ÊÍÏíËÇÊ İí MainTemplate¡ íãßäß ÌáÈ ÇáÊÍÏíËÇÊ æÏãÌåÇ İí ãÓÊæÏÚ 
+git fetch upstream
+git merge upstream/main
