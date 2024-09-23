@@ -35,9 +35,5 @@
         <PackageReference Include="Respawn" />
         <PackageReference Include="Testcontainers.MsSql" />
     </ItemGroup>
-    
-    <ItemGroup>
-        <ProjectReference Include="..\..\src\Web\Web.csproj" />
-    </ItemGroup>
 
 </Project>
