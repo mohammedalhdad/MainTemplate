@@ -33,7 +33,7 @@ public static class DependencyInjection
 
         services.AddOpenApiDocument((configure, sp) =>
         {
-            configure.Title = "CleanArchitecture API"; 
+            configure.Title = "CleanArchitecture API";
             configure.Description = "CleanArchitecture Description";
 
             // remove DTO from class name

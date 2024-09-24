@@ -1,5 +1,5 @@
-﻿using NJsonSchema.Generation;
-using NJsonSchema;
+﻿using NJsonSchema;
+using NJsonSchema.Generation;
 
 namespace API.Infrastructure;
 
