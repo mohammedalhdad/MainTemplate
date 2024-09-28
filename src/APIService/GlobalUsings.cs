@@ -1,2 +1,2 @@
 global using Ardalis.GuardClauses;
-global using CleanArchitecture.Web.Infrastructure;
+global using CleanArchitecture.API.Infrastructure;
