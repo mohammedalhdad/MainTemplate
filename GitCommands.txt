@@ -1,11 +1,15 @@
 git remote -v
 
 
+// for fetch and push
 git remote add upstream https://github.com/mohammedalhdad/MainTemplate.git
 
+// for fetch only
+git remote set-url --add upstream https://github.com/mohammedalhdad/MainTemplate.git
 
 
-//ÚäÏãÇ íÊã ÅÌÑÇÁ ÊÍÏíËÇÊ İí MainTemplate¡ íãßäß ÌáÈ ÇáÊÍÏíËÇÊ æÏãÌåÇ İí ãÓÊæÏÚ 
+
+//Ø¹Ù†Ø¯Ù…Ø§ ÙŠØªÙ… Ø¥Ø¬Ø±Ø§Ø¡ ØªØ­Ø¯ÙŠØ«Ø§Øª ÙÙŠ MainTemplateØŒ ÙŠÙ…ÙƒÙ†Ùƒ Ø¬Ù„Ø¨ Ø§Ù„ØªØ­Ø¯ÙŠØ«Ø§Øª ÙˆØ¯Ù…Ø¬Ù‡Ø§ ÙÙŠ Ù…Ø³ØªÙˆØ¯Ø¹  
 git fetch upstream
 git merge upstream/main
 git push origin main
