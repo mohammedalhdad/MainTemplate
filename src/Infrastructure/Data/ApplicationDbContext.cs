@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
 using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,5 +16,17 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // البحث عن جميع الخصائص من نوع decimal وتعيين النوع "decimal(18, 2)" لها
+        foreach (var entityType in builder.Model.GetEntityTypes())
+        {
+            var decimalProperties = entityType.GetProperties()
+                                               .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?));
+
+            foreach (var property in decimalProperties)
+            {
+                property.SetColumnType("decimal(18, 2)");
+            }
+        }
     }
 }
