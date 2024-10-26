@@ -36,10 +36,12 @@ public static class DependencyInjection
             if (isPostgres)
             {
                 options.UseNpgsql(connectionString);
+                //.LogTo(Console.WriteLine, Logging.LogLevel.Information);
             }
             else
             {
                 options.UseSqlServer(connectionString);
+                //.LogTo(Console.WriteLine, Logging.LogLevel.Information);
             }
 
         });
