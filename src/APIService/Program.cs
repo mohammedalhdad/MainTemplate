@@ -1,3 +1,5 @@
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using NLog;
 using NLog.Web;
 
@@ -23,14 +25,16 @@ try
     builder.Services.AddInfrastructureServices(builder.Configuration);
     builder.Services.AddAPIServices();
 
+    builder.Services.AddFastEndpoints()
+     .SwaggerDocument();
+    
     var app = builder.Build();
 
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
-        app.UseOpenApi();
-        app.UseSwaggerUi();
+       
 
     }
     else
@@ -39,14 +43,7 @@ try
         app.UseHsts();
 
 
-        app.UseOpenApi();
-        app.UseSwaggerUi();
-        //app.UseSwaggerUi(settings =>
-        //{
-        //    settings.Path = "/api";
-        //    settings.DocumentPath = "/api/specification.json";
-        //});
-
+      
     }
 
     app.UseHttpsRedirection();
@@ -59,10 +56,18 @@ try
         c.CustomStylesheetPath = "/redoc-styles.css"; // ÅÖÇÝÉ ãÓÇÑ ãáÝ CSS ÇáãÎÕÕ
     });
 
-    //app.UseExceptionHandler(options => { });
+    app.UseExceptionHandler(options => { });
 
-    app.MapEndpoints();
 
+
+    // Use routing
+    app.MapEndpoints();                 //Traditional Endpoints
+    app.UseFastEndpoints(c =>           //FastEndpoints
+    {
+        c.Endpoints.RoutePrefix = "api";
+    }).UseSwaggerGen();
+
+   
     app.Run();
 
 

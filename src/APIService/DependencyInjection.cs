@@ -4,10 +4,11 @@ using Azure.Identity;
 using CleanArchitecture.API.Services;
 using CleanArchitecture.Application.Common.Interfaces;
 using CleanArchitecture.Infrastructure.Data;
+using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Mvc;
 
-using NSwag;
-using NSwag.Generation.Processors.Security;
+
+
 
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -31,27 +32,8 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
 
-        services.AddOpenApiDocument((configure, sp) =>
-        {
-            configure.Title = "CleanArchitecture API";
-            configure.Description = "CleanArchitecture Description";
 
-            // remove DTO from class name
-            configure.SchemaSettings.SchemaProcessors.Add(new SwaggerCustomSchemaFilter());
-
-
-            // Add JWT
-            configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-            {
-                Type = OpenApiSecuritySchemeType.ApiKey,
-                Name = "Authorization",
-                In = OpenApiSecurityApiKeyLocation.Header,
-                Description = "Type into the textbox: Bearer {your JWT token}."
-            });
-
-            configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-
-        });
+        services.AddExceptionHandler<CustomExceptionHandler>();
 
 
         //Convert Enums to String NGSwagger
