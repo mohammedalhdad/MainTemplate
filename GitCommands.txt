@@ -1,11 +1,10 @@
 git remote -v
 
 
-// for fetch and push
+
 git remote add upstream https://github.com/mohammedalhdad/MainTemplate.git
 
-// for fetch only
-git remote set-url --add upstream https://github.com/mohammedalhdad/MainTemplate.git
+
 
 
 
