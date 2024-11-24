@@ -46,4 +46,10 @@
     <Folder Include="Data\Configurations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SharedKernel">
+      <HintPath>D:\Projects\ERP\SharedKernel\SharedKernel\bin\Debug\net8.0\SharedKernel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
