@@ -1,6 +1,6 @@
 @APIService_HostAddress = http://localhost:5155
 
-GET {{APIService_HostAddress}}/weatherforecast/
+GET {{APIService_HostAddress}}/swagger/
 Accept: application/json
 
 ###
