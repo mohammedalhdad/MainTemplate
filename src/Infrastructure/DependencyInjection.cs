@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using SharedKernel.Services.Messaging;
+using CleanArchitecture.Infrastructure.DependencyInjections;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -70,53 +71,15 @@ public static class DependencyInjection
 
 
 
-        //===================================================RabbitMQ ====================================================
+        //rabbitMQ
+        if (configuration.GetValue<bool>("RabbitMQ:IsEnabled"))
+         services.AddRabbitMqService(configuration);
 
-        var rabbitMqHost = configuration["RabbitMQ:Host"];
-        var rabbitMqPort = configuration["RabbitMQ:Port"];
-        string rabbitMqUsername = configuration["RabbitMQ:Username"]!;
-        string rabbitMqPassword = configuration["RabbitMQ:Password"]!;
-
-        // إعداد MassTransit مع RabbitMQ
-        services.AddMassTransit(x =>
-        {
-            // إعداد Request/Response
-            //x.AddRequestClient<T>();
-
-            //Add Consumers
-            //x.AddConsumer<PaymentTermTemplate>(); 
+        //openTelemetry
+        if(configuration.GetValue<bool>("OpenTelemetry:IsEnabled"))
+            services.AddOpenTelemetryService(configuration);
 
 
-            // تسجيل المستهلكين من أكثر من Assembly
-            //x.AddConsumers(typeof(SomeConsumer).Assembly, typeof(AnotherConsumer).Assembly);
-
-
-            // تسجيل كل المستهلكين من نفس الـ Assembly بشكل تلقائي
-            x.AddConsumers(Assembly.GetExecutingAssembly());
-
-            x.UsingRabbitMq((context, cfg) =>
-            {
-                cfg.Host($"rabbitmq://{rabbitMqHost}:{rabbitMqPort}", h =>
-                {
-                    h.Username(rabbitMqUsername);
-                    h.Password(rabbitMqPassword);
-                });
-
-                cfg.UseMessageRetry(r => r.Interval(3, TimeSpan.FromSeconds(5)));
-
-                // ربط المستهلكين مع RabbitMQ تلقائياً
-                cfg.ConfigureEndpoints(context);
-
-                //// إعداد نقطة النهاية لاستقبال الرسائل
-                //cfg.ReceiveEndpoint("send-command", e =>
-                //{
-                //    e.Consumer<PaymentTermTemplate>(context);
-                //});
-
-            });
-        });
-
-        services.AddScoped(typeof(IMessagePublisher<>), typeof(RabbitMqMessageService<>));
 
         return services;
     }
