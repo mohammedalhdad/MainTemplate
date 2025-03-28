@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using SharedKernel.Services.Messaging;
 using CleanArchitecture.Infrastructure.DependencyInjections;
+using CleanArchitecture.Infrastructure.Security;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -29,6 +30,9 @@ public static class DependencyInjection
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        services.AddSingleton<IEncryptionService, EncryptionService>();
+
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
